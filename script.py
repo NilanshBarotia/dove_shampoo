@@ -3,7 +3,6 @@ import sys
 import subprocess
 from datetime import datetime
 
-# ===================== 🔥 MSVC AUTO-BOOTSTRAP (ANY TERMINAL) =====================
 def ensure_msvc():
     try:
         subprocess.check_output(["where", "cl"], stderr=subprocess.DEVNULL)
@@ -45,30 +44,23 @@ def ensure_msvc():
     sys.exit(0)
 
 ensure_msvc()
-# ===============================================================================
 
-
-# 🔥 FINAL WINDOWS FIX (ENCODING + RICH + TQDM + GPU + NVCC)
 os.environ["PYTHONUTF8"] = "1"
 os.environ["PYTHONIOENCODING"] = "utf-8"
 os.environ["RICH_DISABLE"] = "1"
 os.environ["TQDM_DISABLE"] = "1"
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
 
-# 🔥 CRITICAL NVCC FIX
 os.environ["VSCMD_ARG_TGT_ARCH"] = "x64"
 os.environ["CUDAHOSTCXX"] = "cl.exe"
-# 🔥 FORCE NVCC TO TRUST CURRENT MSVC ENV (CRITICAL)
 os.environ["NVCC_PREPEND_FLAGS"] = "--compiler-bindir=cl.exe"
 os.environ["CUDACXX"] = r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\bin\nvcc.exe"
 
 
 
-# ================= CONFIG =================
 VIDEO_PATH = "test.mp4"
 RUNS_DIR = "runs"
 NERF_MODEL = "splatfacto"
-# ==========================================
 
 
 def run_command(command: str, step: str):
@@ -226,3 +218,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
